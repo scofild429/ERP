@@ -1,0 +1,5 @@
+backend : myerp
+port: 8080
+
+frontend : mylayuimini
+port : 8000
