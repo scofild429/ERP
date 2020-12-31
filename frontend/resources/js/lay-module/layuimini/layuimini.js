@@ -53,7 +53,7 @@ layui.define(["element", "jquery"], function (exports) {
           layuimini.initHome(data.homeInfo);
           layuimini.initLogo(data.logoInfo);
           layuimini.initClear(data.clearInfo);
-          layuimini.initMenu(data.menuInfo);
+          layuimini.initMenu(data);
           layuimini.initTab();
         }
       }).fail(function () {
@@ -98,7 +98,7 @@ layui.define(["element", "jquery"], function (exports) {
      * 初始化logo信息
      * @param data
      */
-    this.initLogo = function (data) {
+    this.initLogo = function () {
       var html =
         '<a href="">\n' +
         '<img src="resources/images/logo.png" alt="logo">\n' +
@@ -111,7 +111,7 @@ layui.define(["element", "jquery"], function (exports) {
      * 初始化清理缓存
      * @param data
      */
-    this.initClear = function (data) {
+    this.initClear = function () {
       $(".layuimini-clear").attr("data-href", "resources/api/clear.json");
     };
 

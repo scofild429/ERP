@@ -31,11 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @program: 0812springboot
- * @author: 雷哥
- * @create: 2019-12-18 15:58
- **/
+
+
 @Configuration
 @EnableConfigurationProperties(ShiroProperties.class)
 public class ShiroAutoConfiguration {

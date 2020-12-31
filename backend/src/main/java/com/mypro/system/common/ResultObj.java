@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultObj {
+    public static final ResultObj IS_LOGIN = new ResultObj(200, "login successful");
+    public static final ResultObj UN_LOGIN = new ResultObj(-1, "login failed");
     private  Integer code = 200;
     private  String msg = "";
     private  String token = "";

@@ -13,6 +13,8 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
  * @create: 2020-01-02 14:42
  **/
 
+
+
 @Configuration
 public class RedisConfig {
 //    @Bean
