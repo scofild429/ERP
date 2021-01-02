@@ -17,9 +17,12 @@ import java.util.Date;
 public class NoticeVo extends  BaseVo{
 
     private String title;
+
     private String opername;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 }
