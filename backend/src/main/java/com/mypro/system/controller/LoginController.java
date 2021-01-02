@@ -5,6 +5,7 @@ import com.mypro.system.common.ActiveUser;
 import com.mypro.system.common.Constant;
 import com.mypro.system.common.MenuTreeNode;
 import com.mypro.system.common.ResultObj;
+import com.mypro.system.domain.Loginfo;
 import com.mypro.system.domain.Menu;
 import com.mypro.system.domain.User;
 import com.mypro.system.service.LoginfoService;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 
@@ -36,67 +39,36 @@ public class LoginController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private LoginfoService loginfoService;
 
     /**
      * 用户登陆
      */
     @RequestMapping("doLogin")
     @ResponseBody
-    public ResultObj doLogin(String loginname, String  password){
+    public ResultObj doLogin(String loginname, String  password, HttpServletRequest request){
         try {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken loginToken = new UsernamePasswordToken(loginname, password);
             subject.login(loginToken);
-            // ActiveUser activeUser = (ActiveUser) subject.getPrincipal();
+            ActiveUser activeUser = (ActiveUser) subject.getPrincipal();
             // get the sessionid of shiro, naming token
             String token = subject.getSession().getId().toString();
             //login daily
+            User user = activeUser.getUser();
+            Loginfo loginfo = new Loginfo();
+            loginfo.setLoginname(user.getName()+"-"+user.getLoginname());
+            loginfo.setLoginip(request.getRemoteAddr());
+            loginfo.setLogintime(new Date());
+            loginfoService.save(loginfo);
+
             return new ResultObj(200, "success login", token);
         }catch (AuthenticationException e){
             e.printStackTrace();
             return  new ResultObj(-1,"username or password is wrong");
         }
     }
-//    public ResultObj doLogin(String loginname, String password, String keyCode, String captcha, HttpServletRequest request){
-//        try {
-//            ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
-//            String code = opsForValue.get(keyCode);
-//            if(null==code){
-//                return new ResultObj(-1,"验证码过期");
-//            }else{
-//                if(code.equalsIgnoreCase(captcha)){
-//                    Subject subject= SecurityUtils.getSubject();
-//                    UsernamePasswordToken loginToken=new UsernamePasswordToken(loginname,password);
-//                    subject.login(loginToken);
-//                    //ActiveUser activeUser= (ActiveUser) subject.getPrincipal();
-//                    //得到shiro的sessionid==token
-//                    String token = subject.getSession().getId().toString();
-//                    //写入登陆日志
-//                    ActiveUser activeUser= (ActiveUser) subject.getPrincipal();
-//                    User user=activeUser.getUser();
-//                    Loginfo loginfo=new Loginfo();
-//                    loginfo.setLoginname(user.getName()+"-"+user.getLoginname());
-//                    loginfo.setLoginip(request.getRemoteAddr());
-//                    loginfo.setLogintime(new Date());
-//                    loginfoService.save(loginfo);
-//                    List<String> permissions = activeUser.getPermissions();
-//                    Map<String,Object> map =new HashMap<>();
-//                    map.put("token",token);
-//                    map.put("permissions",permissions);
-//                    map.put("usertype",user.getType());
-//                    map.put("username",user.getName());
-//                    return new ResultObj(200,"登陆成功",map);
-//                }else{
-//                    return new ResultObj(-1,"验证码出错");
-//                }
-//            }
-//        }catch (AuthenticationException e){
-//            e.printStackTrace();
-//            return new ResultObj(-1,"用户或密码不正确");
-//        }
-//    }
-
-
 
     /**
      * 加载所有菜单【顶部菜单和左侧菜单】
