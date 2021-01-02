@@ -31,8 +31,9 @@ import java.util.*;
  * @create: 2020-01-04 09:33
  **/
 
+
+//@CrossOrigin
 @Controller
-@CrossOrigin
 @RequestMapping("login")
 public class LoginController {
 
