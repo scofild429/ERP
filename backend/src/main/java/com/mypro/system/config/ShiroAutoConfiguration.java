@@ -2,6 +2,7 @@ package com.mypro.system.config;
 
 
 import com.mypro.system.realm.UserRealm;
+import com.mypro.system.shiro.OptionsAccessControlFilter;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -91,8 +92,9 @@ public class ShiroAutoConfiguration {
         bean.setUnauthorizedUrl(shiroProperties.getUnauthorizedUrl());
 
 //        //创建自定义filter
+//        OptionsAccessControlFilter filter = new OptionsAccessControlFilter();
 //        Map<String, Filter> map=new HashMap<>();
-//        map.put("authc",new ShiroLoginFilter());
+//        map.put("options",filter);
 //        bean.setFilters(map);
 
         //注入过滤器
@@ -103,17 +105,22 @@ public class ShiroAutoConfiguration {
             String[] anonUrls = shiroProperties.getAnonUrls();
             for (String anonUrl : anonUrls) {
                 filterChainDefinition.put(anonUrl,"anon");
+//                filterChainDefinition.put(anonUrl,"options");
             }
         }
         //注入登出的地址
         if(shiroProperties.getLogoutUrl()!=null){
             filterChainDefinition.put(shiroProperties.getLogoutUrl(),"logout");
+//            filterChainDefinition.put(shiroProperties.getLogoutUrl(),"options");
+
         }
         //注拦截的地址
         String[] authcUrls = shiroProperties.getAuthcUrls();
         if(authcUrls!=null&&authcUrls.length>0){
             for (String authcUrl : authcUrls) {
                 filterChainDefinition.put(authcUrl,"authc");
+//                filterChainDefinition.put(authcUrl,"options");
+
             }
         }
         bean.setFilterChainDefinitionMap(filterChainDefinition);
