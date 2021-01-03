@@ -1,12 +1,19 @@
 * frontend platfrom:
+
 mylayuimini framework
+
 [[http://layuimini.99php.cn/][offical webseit]]
+
 [[https://gitee.com/zhongshaofa/layuimini/tree/master/][download seit]]
+
 download with zip file, 
+
+
 git clone only works after 06.19, but the tutorial is 01.19.
 
 * frontend :
 port : 8000
+
 nginx:
 #+begin_src 
 server {
@@ -46,12 +53,16 @@ server {
 
 * backend : 
 port: 8080
+
 idea2020-3 settings.zip
+
 apache-maven-3.6.3
+
 apache-tomcat-9.0.38
 
 * mysql:
 0812erp.sql
+
 change utf8 character set to utf8mb4 for upgrade, connection, client, server with configuration
 #+begin_src 
 [mysql_upgrade]
