@@ -95,7 +95,7 @@ public class LoginController {
 
         for (Menu m : menus) {
             Boolean spread=m.getSpread()==Constant.SPREAD_TRUE?true:false;
-            treeNodes.add(new MenuTreeNode(m.getId(),m.getPid(),m.getTitle(),m.getHref(),m.getIcon(),spread,m.getTarget(),m.getTypecode()));
+            treeNodes.add(new MenuTreeNode(m.getId(),m.getPid(),m.getTitle(),m.getHref(),m.getIcon(),spread,m.getTarget(),m.getTypeCode()));
         }
         List<MenuTreeNode> nodes = MenuTreeNode.MenuTreeNodeBuilder.build(treeNodes, 0);
         Map<String,Object> res=new HashMap<>();

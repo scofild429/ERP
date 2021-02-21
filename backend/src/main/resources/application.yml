@@ -72,7 +72,7 @@ shiro:
     - /**
     - /index.html*
     - /login/login*
-    - resources/**
+    - resources/**         # - /resources/**   :seems to be works
   logout-url: /login/logout*
   authc-urls:
 #    - /**

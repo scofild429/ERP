@@ -6,4 +6,7 @@ import com.mypro.system.domain.Menu;
 public interface MenuMapper extends BaseMapper<Menu> {
 
 
+    Integer queryMenuMaxOrderNum();
+
+    Integer queryMenuChildrenCountById(Integer id);
 }

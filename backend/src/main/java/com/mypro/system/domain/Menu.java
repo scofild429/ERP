@@ -34,11 +34,11 @@ public class Menu implements Serializable {
 
     /**
      * topmenu:system/business
-permission:menu:addMenu
+     permission:menu:addMenu
 
      */
     @TableField(value = "typecode")
-    private String typecode;
+    private String typeCode;
 
     /**
      * 名称
@@ -67,6 +67,12 @@ permission:menu:addMenu
     @TableField(value = "spread")
     private Integer spread;
 
+//    @TableField(exist = false)
+//    private  Boolean open;
+//    public  Boolean getOpen(){
+//        return  this.spread == 1?true:false;
+//    }
+
     /**
      * 排序码
      */
@@ -78,6 +84,8 @@ permission:menu:addMenu
      */
     @TableField(value = "available")
     private Integer available;
+
+
 
     private static final long serialVersionUID = 1L;
 
@@ -108,7 +116,7 @@ permission:menu:addMenu
         this.id = id;
         this.pid = pid;
         this.type = type;
-        this.typecode = typecode;
+        this.typeCode = typecode;
         this.title = title;
         this.ordernum = ordernum;
         this.available = available;

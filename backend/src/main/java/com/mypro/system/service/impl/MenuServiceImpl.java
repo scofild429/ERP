@@ -2,6 +2,8 @@ package com.mypro.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mypro.system.common.Constant;
+import com.mypro.system.common.DataGridView;
+import com.mypro.system.vo.MenuVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -46,5 +48,36 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         });
         qw.orderByAsc("ordernum");
         return this.menuMapper.selectList(qw);
+    }
+
+    @Override
+    public DataGridView queryAllMenu(MenuVo menuVo) {
+        QueryWrapper<Menu> qw = new QueryWrapper<>();
+        qw.eq(menuVo.getAvailable() != null, "available", menuVo.getAvailable());
+        qw.orderByAsc("ordernum");
+        List<Menu> menus = this.menuMapper.selectList(qw);
+        return  new DataGridView(Long.valueOf(menus.size()), menus);
+    }
+
+    @Override
+    public Menu saveMenu(Menu menu) {
+        this.menuMapper.insert(menu);
+        return menu;
+    }
+
+    @Override
+    public Integer queryMenuMaxOrderNum(){
+        return this.menuMapper.queryMenuMaxOrderNum();
+    }
+
+    @Override
+    public Menu updateMenu(Menu menu) {
+        this.menuMapper.updateById(menu);
+        return menu;
+    }
+
+    @Override
+    public Integer queryMenuChildrenCountById(Integer id) {
+        return this.menuMapper.queryMenuChildrenCountById(id);
     }
 }
