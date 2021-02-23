@@ -20,6 +20,12 @@ public class ResultObj {
     public static final ResultObj UPDATE_SUCCESS = new ResultObj(200, "update success");
     public static final ResultObj UPDATE_ERROR = new ResultObj(-1, "update failed");
 
+    public static final ResultObj DISPATCH_SUCCESS = new ResultObj(200,"assigment success");
+    public static final ResultObj DISPATCH_ERROR = new ResultObj(-1, "assigment failed");
+    public static final ResultObj RESET_SUCCESS = new ResultObj(200, "reset success");
+    public static final ResultObj RESET_ERROR = new ResultObj(-1, "reset failed");
+
+
     private  Integer code = 200;
     private  String msg = "";
     private  String token = "";

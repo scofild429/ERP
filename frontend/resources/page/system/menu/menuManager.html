@@ -163,7 +163,7 @@
 	     }
 	   }
 	   },
-	   {Field: 'href',  title: '地址', align: "center",width: 180},
+	   {field: 'href',  title: '地址', align: "center",width: 180},
 	   {field: 'typeCode',  title: '编码', align: "center",width: 120},
 	   {field: 'icon',  title: '图标', align: "center",width: 120,templet:function(d){
 	     var x="<i class='"+d.icon+"' ></i>";
@@ -180,7 +180,7 @@
 	     // 在这里写ajax请求，通过callback方法回调数据 
 	     $.get(api+'menu/loadAllMenu', function (res) { 
 	       callback(res.data);  // 参数是数组类型
-	       console.log(res.data);
+	       // console.log(res.data);
 	     }); 	     
 	   }else{
 	     callback([]); // 回调空，渲染数据
@@ -294,7 +294,7 @@
 	     //装载数据表格 
 	     form.val("dataFrm",data); 
 	     $.get(api+"menu/getMenuById",{id:data.pid},function(res){ 
-	       console.log(res); 
+	       // console.log(res); 
 	       $("#p_name").val(res.data.title); 
 	     });
 	     if(data.type=='topmenu'){
@@ -325,17 +325,15 @@
 	 }) 
 	 return false; 
        }) 
-
               
        //监听菜单和权限选择的按钮事件打开菜单和权限选择的弹出层 
        $("#doSelectMenu").click(function(){
-	 var p_id=$("#p_id").val(); 
-	 openMenuSelecter(p_id,function(id,name){ 
+	 var pp_id=$("#p_id").val(); 
+	 openMenuSelecter(pp_id,function(id,name){ 
 	   $("#p_id").val(id); 
 	   $("#p_name").val(name); 
 	 }); 
        });
-
        
      });
     </script>

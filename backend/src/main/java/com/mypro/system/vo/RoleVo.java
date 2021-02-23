@@ -13,8 +13,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class RoleVo extends  BaseVo{
 
+    private Integer available;
     private Integer userId;
-
     private String name;
     private String remark;
 

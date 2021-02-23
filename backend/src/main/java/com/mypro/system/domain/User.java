@@ -8,9 +8,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @AllArgsConstructor
@@ -57,6 +59,7 @@ public class User implements Serializable {
      * 密码
      */
     @TableField(value = "pwd")
+    @JsonIgnore  // no Seriraliable
     private String pwd;
 
     /**
@@ -65,12 +68,15 @@ public class User implements Serializable {
     @TableField(value = "deptid")
     private Integer deptid;
 
+    @TableField(exist = false)
+    private  String deptname;
+
     /**
      * 入职时间
      */
-    //    @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @TableField(value = "hiredate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date hiredate;
 
     @TableField(value = "ordernum")
@@ -92,6 +98,7 @@ public class User implements Serializable {
      * 盐
      */
     @TableField(value = "salt")
+    @JsonIgnore  //密码 no Seriraliable
     private String salt;
 
     /**
