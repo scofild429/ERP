@@ -8,6 +8,7 @@ import com.mypro.system.domain.Dept;
 import com.mypro.system.service.DeptService;
 import com.mypro.system.vo.DeptVo;
 import lombok.var;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,7 @@ public class DeptController {
      */
 
     @PostMapping("addDept")
+    @RequiresPermissions("dept:add")
     public ResultObj addDept(Dept dept){
         try {
             dept.setSpread(Constant.SPREAD_FALSE);
@@ -77,6 +79,7 @@ public class DeptController {
      * @return
      */
     @PostMapping("updateDept")
+    @RequiresPermissions("dept:update")
     public ResultObj updateDept(Dept dept){
         try {
             this.deptService.updateDept(dept);
@@ -110,6 +113,7 @@ public class DeptController {
      * @return
      */
     @RequestMapping("deleteDept")
+    @RequiresPermissions("dept:delete")
     public ResultObj deleteDept(Integer id){
         try {
             this.deptService.removeById(id);

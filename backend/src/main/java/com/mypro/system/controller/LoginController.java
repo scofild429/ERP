@@ -64,7 +64,13 @@ public class LoginController {
             loginfo.setLogintime(new Date());
             loginfoService.save(loginfo);
 
-            return new ResultObj(200, "success login", token);
+            List<String> permissions = activeUser.getPermissions();
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", token);
+            map.put("permissions", permissions);
+            map.put("usertype",user.getType());
+            map.put("username", user.getName());
+            return new ResultObj(200, "success login", map);
         }catch (AuthenticationException e){
             e.printStackTrace();
             return  new ResultObj(-1,"username or password is wrong");

@@ -13,6 +13,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class MenuVo extends BaseVo {
-    Integer available;
+
     Integer hasPermission;  //0不要权限
 }

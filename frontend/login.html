@@ -95,7 +95,10 @@
 	       btn.text("登 入").attr("disabled",false).removeClass("layui-disabled");
 	     }else{
 	       // save token into cookie
-	       $.cookie('TOKEN', res.token, {expires: 7});
+	       $.cookie('TOKEN', res.token.token, {expires: 7});
+	       localStorage.setItem("permissions", res.token.permissions);
+	       localStorage.setItem("usertype", res.token.usertype);
+	       localStorage.setItem("username", res.token.username);
 	       window.location.href = "/index.html";
 	     }
 	   },

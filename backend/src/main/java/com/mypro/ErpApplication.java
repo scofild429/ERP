@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.mypro.system.mapper"})
+@MapperScan(basePackages = {"com.mypro.system.mapper", "com.mypro.business.mapper"})
 @EnableCaching
 public class ErpApplication {
 

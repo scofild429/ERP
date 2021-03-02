@@ -3,6 +3,7 @@ package com.mypro.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mypro.system.common.Constant;
 import com.mypro.system.common.DataGridView;
 import com.mypro.system.vo.RoleVo;
 import org.apache.commons.lang3.StringUtils;
@@ -89,6 +90,25 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             lists.add(map);
         }
         return new DataGridView(Long.valueOf(lists.size()), lists);
+    }
+
+    @Override
+    public List<String> queryRoleNamesByUserId(Integer id) {
+        List<Integer> roleIds = this.roleMapper.queryRoleIdsByUserIds(id);
+        if (null != roleIds && roleIds.size()>0) {
+            QueryWrapper<Role> qw = new QueryWrapper<>();
+            qw.eq("available", Constant.AVAILABLE_TRUE);
+            qw.in("id", roleIds);
+            List<Role> rolesObject = this.roleMapper.selectList(qw);
+            List<String> roles = new ArrayList<>();
+            for (Role role : rolesObject) {
+                roles.add(role.getName());
+            }
+            return roles;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override

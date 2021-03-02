@@ -1,13 +1,11 @@
 package com.mypro.system.controller;
 
 
-import com.mypro.system.common.Constant;
-import com.mypro.system.common.DataGridView;
-import com.mypro.system.common.MD5Utils;
-import com.mypro.system.common.ResultObj;
+import com.mypro.system.common.*;
 import com.mypro.system.domain.User;
 import com.mypro.system.service.UserService;
 import com.mypro.system.vo.UserVo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -142,6 +140,14 @@ public class UserController {
             return ResultObj.DISPATCH_ERROR;
         }
     }
+
+
+    @GetMapping("getCurrentUser")
+    public Object getCurrentUser(){
+        ActiveUser activeUser = (ActiveUser)SecurityUtils.getSubject().getPrincipal();
+        return  new DataGridView(activeUser.getUser());
+    }
+
 
 
 }

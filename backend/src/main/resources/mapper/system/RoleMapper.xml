@@ -42,4 +42,14 @@
   <select id="queryRoleIdsByUserIds" resultType="java.lang.Integer">
     select rid from sys_role_user where uid=#{userId}
     </select>
+
+  <select id="queryMenuIdsByRids" resultType="java.lang.Integer">
+    select distinct  mid from sys_role_menu
+    <where>
+      <foreach collection="roleIds" open=" rid in (" close=")" separator="," item="sn">
+        #{sn}
+      </foreach>
+    </where>
+
+  </select>
 </mapper>

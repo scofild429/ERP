@@ -160,9 +160,9 @@
     <script src="/resources/js/lay-config.js" charset="utf-8"></script>
     <script src="/resources/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
     <script src="/resources/lib/common/jquery.cookie.min.js" charset="utf-8"></script>
-    <script src="/resources/lib/common/common.js" charset="utf-8"></script>
     <script src="../../../lib/common/selectLayer.js" charset="utf-8"></script> 
     <script src="../../../lib/common/Convert_Pinyin.js" charset="utf-8"></script> 
+    <script src="../../../lib/common/common.js" charset="utf-8"></script> 
     
     <script>
      layui.use(['form', 'table', 'laydate', 'layer'], function () {
@@ -198,7 +198,9 @@
 	   {field: 'hiredate', title: '入职时间', align: "center", width:150},
 	   {field: 'available',  title: '是否可用', align: "center",templet:'#availableTpl', width:120},
 	   {field: 'ordernum', title: '排序码', align: "center", width:100},
-           {field: 'imgpath', title: '用户头像', align: "center", width:100},
+           {field: 'imgpath', title: '用户头像', align: "center", width:100 , templet:function(d){
+	     return "<img width=30 height=30 src='"+baseUrl+d.imgpath+" ' />"
+	   }},
            {title: '操作', templet: '#userTableBar', width:300, fixed: "right", align: "center"}
          ]],
          page: true

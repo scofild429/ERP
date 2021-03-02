@@ -21,4 +21,6 @@ public interface RoleMapper extends BaseMapper<Role> {
     void insertRoleMenu(@Param("rid") Integer rid, @Param("mid") Integer mid);
 
     List<Integer> queryRoleIdsByUserIds(Integer userId);
+
+    List<Integer> queryMenuIdsByRids(@Param("roleIds") List<Integer> roleIds);
 };

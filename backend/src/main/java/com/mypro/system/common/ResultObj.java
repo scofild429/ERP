@@ -28,7 +28,7 @@ public class ResultObj {
 
     private  Integer code = 200;
     private  String msg = "";
-    private  String token = "";
+    private  Object token = "";
 
 
     public ResultObj(Integer code, String msg) {
