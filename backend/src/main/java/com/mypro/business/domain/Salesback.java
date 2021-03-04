@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "bus_sales")
-public class Sales implements Serializable {
+@TableName(value = "bus_salesback")
+public class Salesback implements Serializable {
     @TableId(value = "id", type = IdType.INPUT)
     private Integer id;
 
@@ -23,13 +22,16 @@ public class Sales implements Serializable {
     private Integer customerid;
 
     @TableField(exist = false)
-    private  String customername;
+    private String customername;
 
     @TableField(value = "paytype")
     private String paytype;
 
-    @TableField(value = "salestime")
-    private Date salestime;
+    @TableField(value = "salesbacktime")
+    private Date salesbacktime;
+
+    @TableField(value = "salebackprice")
+    private Double salebackprice;
 
     @TableField(value = "operateperson")
     private String operateperson;
@@ -40,8 +42,8 @@ public class Sales implements Serializable {
     @TableField(value = "remark")
     private String remark;
 
-    @TableField(value = "saleprice")
-    private Double saleprice;
+    @TableField(value = "salesid")
+    private Integer salesid;
 
     @TableField(value = "goodsid")
     private Integer goodsid;
@@ -60,7 +62,9 @@ public class Sales implements Serializable {
 
     public static final String COL_PAYTYPE = "paytype";
 
-    public static final String COL_SALESTIME = "salestime";
+    public static final String COL_SALESBACKTIME = "salesbacktime";
+
+    public static final String COL_SALEBACKPRICE = "salebackprice";
 
     public static final String COL_OPERATEPERSON = "operateperson";
 
@@ -68,7 +72,7 @@ public class Sales implements Serializable {
 
     public static final String COL_REMARK = "remark";
 
-    public static final String COL_SALEPRICE = "saleprice";
+    public static final String COL_SALESID = "salesid";
 
     public static final String COL_GOODSID = "goodsid";
 }

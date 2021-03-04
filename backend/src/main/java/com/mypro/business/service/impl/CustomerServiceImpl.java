@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mypro.business.vo.CustomerVo;
+import com.mypro.system.common.Constant;
 import com.mypro.system.common.DataGridView;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.Serializable;
@@ -44,12 +48,15 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
+
+    @CachePut(cacheNames = "com.mypro.business.service.impl.CustomerServiceImpl", key = "#result.id")
     @Override
     public Customer saveCustomer(Customer customer) {
         this.customerMapper.insert(customer);
         return customer;
     }
 
+    @CachePut(cacheNames = "com.mypro.business.service.impl.CustomerServiceImpl", key = "#result.id")
     @Override
     public Customer updateCustomer(Customer customer)
     {
@@ -58,7 +65,21 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     }
 
     @Override
+    public DataGridView getAllAvailableCustomer() {
+        QueryWrapper<Customer> qw = new QueryWrapper<>();
+        qw.eq("available", Constant.AVAILABLE_TRUE);
+        return new DataGridView(this.customerMapper.selectList(qw));
+    }
+
+    @CacheEvict(cacheNames = "com.mypro.business.service.impl.CustomerServiceImpl", key = "#id")
+    @Override
     public boolean removeById(Serializable id) {
         return super.removeById(id);
+    }
+
+    @Cacheable(cacheNames = "com.mypro.business.service.impl.CustomerServiceImpl", key = "#id")
+    @Override
+    public Customer getById(Serializable id) {
+        return super.getById(id);
     }
 }

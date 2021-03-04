@@ -13,4 +13,6 @@ public interface CustomerService extends IService<Customer>{
     Customer saveCustomer(Customer customer);
 
     Customer updateCustomer(Customer customer);
+
+    DataGridView getAllAvailableCustomer();
 }
