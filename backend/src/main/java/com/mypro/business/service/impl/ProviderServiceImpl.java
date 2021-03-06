@@ -1,5 +1,7 @@
 package com.mypro.business.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,6 +10,7 @@ import com.mypro.business.vo.ProviderVo;
 import com.mypro.business.vo.ProviderVo;
 import com.mypro.system.common.Constant;
 import com.mypro.system.common.DataGridView;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -59,10 +62,11 @@ public class ProviderServiceImpl extends ServiceImpl<ProviderMapper, Provider> i
 
     @CachePut(cacheNames = "com.mypro.business.service.impl.ProviderServiceImpl", key = "#result.id")
     @Override
-    public Provider updateProvider(Provider provider)
-    {
-        this.providerMapper.updateById(provider);
-        return provider;
+    public Provider updateProvider(Provider provider){
+        Provider selectById = this.providerMapper.selectById(provider.getId());
+        BeanUtil.copyProperties(provider, selectById, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        this.providerMapper.updateById(selectById);
+        return selectById;
     }
 
     @Override

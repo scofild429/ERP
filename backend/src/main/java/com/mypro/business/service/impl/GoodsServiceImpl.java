@@ -1,8 +1,11 @@
 package com.mypro.business.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mypro.business.domain.Customer;
 import com.mypro.business.domain.Provider;
 import com.mypro.business.service.ProviderService;
 import com.mypro.business.vo.GoodsVo;
@@ -66,8 +69,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @CachePut(cacheNames = "com.mypro.business.service.impl.GoodsServiceImpl", key = "#result.id")
     @Override
     public Goods updateGoods(Goods goods) {
-        this.goodsMapper.updateById(goods);
-        return goods;
+        Goods selectById = this.goodsMapper.selectById(goods.getId());
+        BeanUtil.copyProperties(goods, selectById, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        this.goodsMapper.updateById(selectById);
+        return selectById;
     }
 
     @Override

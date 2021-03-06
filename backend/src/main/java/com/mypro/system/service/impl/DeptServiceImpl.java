@@ -1,6 +1,9 @@
 package com.mypro.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mypro.business.domain.Goods;
 import com.mypro.system.common.DataGridView;
 import com.mypro.system.vo.DeptVo;
 import org.apache.commons.lang3.StringUtils;
@@ -46,8 +49,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @CachePut(cacheNames = "com.mypro.system.service.impl.DeptServiceImpl", key = "#result.id")
     @Override
     public Dept updateDept(Dept dept) {
-        this.deptMapper.updateById(dept);
-        return dept;
+        Dept selectById = this.deptMapper.selectById(dept.getId());
+        BeanUtil.copyProperties(dept, selectById, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        this.deptMapper.updateById(selectById);
+        return selectById;
     }
 
     @Override

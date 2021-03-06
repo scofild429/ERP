@@ -1,8 +1,11 @@
 package com.mypro.business.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mypro.business.domain.Provider;
 import com.mypro.business.vo.CustomerVo;
 import com.mypro.system.common.Constant;
 import com.mypro.system.common.DataGridView;
@@ -60,8 +63,10 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     @Override
     public Customer updateCustomer(Customer customer)
     {
-        this.customerMapper.updateById(customer);
-        return customer;
+        Customer selectById = this.customerMapper.selectById(customer.getId());
+        BeanUtil.copyProperties(customer, selectById, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        this.customerMapper.updateById(selectById);
+        return selectById;
     }
 
     @Override

@@ -45,9 +45,9 @@
             </div>
             <div class="layui-form-item">
               <label class="layui-icon layui-icon-vercode" for="captcha"></label>
-              <input type="text" name="captcha" lay-verify="required" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
+              <input type="text" name="captcha" lay-verify="required" placeholder="请输入图形验证码" autocomplete="off" class="layui-input verification captcha" value="">
               <div class="captcha-img">
-                <img id="captchaPic" src="resources/images/captcha.jpg">
+                <img id="captchaPic" onclick="genCode()">
               </div>
             </div>
             <div class="layui-form-item">
@@ -65,7 +65,18 @@
     <script src="resources/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
     <script src="resources/lib/common/jquery.cookie.min.js" charset="utf-8"></script>
     <script src="resources/lib/common/common.js" charset="utf-8"></script>
+
     <script>
+      // captcha
+       //写验证码
+       var keyCode=Math.floor(Math.random() * 9000 + 1000);
+       $("#captchaPic").attr("src",api+'login/captcha?codeKey='+keyCode)
+       
+       function genCode(){
+	 keyCode=Math.floor(Math.random() * 9000 + 1000);
+	 $("#captchaPic").attr("src",api+'login/captcha?codeKey='+keyCode)
+       }
+      
      layui.use(['form'], function () {
        var form = layui.form,
            layer = layui.layer;
@@ -81,6 +92,7 @@
          });
        });
 
+       
        //进行登录操作
        form.on('submit(login)', function (data) {
 	 var btn = $(this);
@@ -88,7 +100,7 @@
 	 $.ajax({
 	   url:api+"login/doLogin",
 	   method:"post",
-	   data:{loginname:data.field.username,password:data.field.password,captcha:data.field.captcha},
+	   data:{loginname:data.field.username,password:data.field.password,captcha:data.field.captcha, keyCode:keyCode},
 	   success:function(res){
 	     layer.msg(res.msg);
 	     if(res.code!=200){

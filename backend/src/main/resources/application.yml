@@ -59,7 +59,7 @@ spring:
 #    - /api/v2/**
 #    - /api/login/captcha
 #    - /api/login/checkLogin
-#    logout-url: /api/login/logout*
+#  logout-url: /api/login/logout*
 #  authc-urls:
 #    - /**
 
@@ -69,13 +69,18 @@ shiro:
   login-url: /index.html
   unauthorized-url: /unauthorized.html
   anon-urls:
-    - /**
-    - /index.html*
-    - /login/login*
-    - resources/**         # - /resources/**   :seems to be works
+    - /login/doLogin*
+    - /druid/**
+    - /swagger-ui.html
+    - /webjars/**
+    - /swagger-resources/**
+    - /v2/**
+    - /login/captcha
+    - /login/checkLogin
   logout-url: /login/logout*
   authc-urls:
-#    - /**
+    - /**
+
 #mybatisplus的配置
 mybatis-plus:
   configuration:
