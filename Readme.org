@@ -1,5 +1,8 @@
+#+TITLE: Project deploy
+#+OPTIONS: num:nil
+#+SETUPFILE: /home/silin/.emacs.d/org-html-themes/org/theme-readtheorg.setup
+#+STARTUP: overview
 * frontend platfrom:
-
 mylayuimini framework
 
 [[http://layuimini.99php.cn/][offical webseit]]
